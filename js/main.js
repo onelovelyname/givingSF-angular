@@ -1,4 +1,4 @@
-var app = angular.module('givingSF', []);
+var app = angular.module('givingSF', ['d3']);
 
 app.controller('OrgController', function ($scope, $sce) {
   $scope.orgs = [];
@@ -40,3 +40,86 @@ app.controller('OrgController', function ($scope, $sce) {
 
 });
 
+//D3 Section, still a work in progress
+
+angular.module('d3', [])
+  .factory('d3', ['$document', '$q', '$rootScope', function($document, $q, $rootScope){
+    var d = $q.defer();
+    function onScriptLoad() {
+      $rootScope.$apply(function() { d.resolve(window.d3); });
+    }
+
+    var scriptTag = $document[0].createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = 'http://d3js.org/d3.v3.min.js';
+    scriptTag.onreadystatechange = function () {
+      if (this.readyState === 'complete') onScriptLoad();
+    };
+    scriptTag.onload = onScriptLoad;
+    var s = $document[0].getElementsByTagName('body')[0];
+    s.appendChild(scriptTag);
+
+    return {
+      d3: function () { return d.promise; }
+    };
+  }]);
+
+  angular.module('givingSF.directives')
+  .directive('d3-graph', ['d3', function(d3) {
+    return {
+      restrict: 'EA',
+      scope: {},
+      link: function (scope, element, attrs) {
+        //d3 code to be entered here
+        var svg = d3.select(element[0])
+                    .append('svg')
+                    .style('width', '100%');
+
+        window.onresize = function () {
+          scope.$apply();
+        };
+
+        // watch for resize event
+        $scope.$watch(function() {
+          return angular.element($window)[0].innerWidth;
+        }, function () {
+          $scope.render(scope.data);
+        });
+
+        $scope.$watch('data', function(newVals, oldVals) {
+          return scope.render(newVals);
+        }, true);
+
+        $scope.render = function(data) {
+          //custom d3 code
+          svg.selectAll('*').remove();
+
+          // setup variables
+          var width =  d3.select(element[0])[0][0].offsetWidth - 20;
+          var height = scope.data.length * 35;
+          var color = d3.scale.category20();
+
+          svg.attr('height', height);
+
+          // create rectangles for bar chart
+
+          svg.selectAll('rect')
+            .data(data).enter()
+            .append('rect')
+            .attr('height', barHeight)
+            .attr('width', 0)
+            .attr('x', Math.round(margin/2))
+            .attr('y', function(d, i) {
+              return i * 35;
+            })
+            .attr('fill', function(d) {
+              return color(d.score);
+            })
+            .transition().duration(1000)
+            .attr('width', function(d) {
+              return xScale(d.score);
+            });
+          };
+      }};
+    }]);
