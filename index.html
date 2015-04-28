@@ -9,9 +9,13 @@
   <body ng-controller="OrgController">
     <form name="orgForm" ng-submit="saveOrg()">
       <input type="text" placeholder="Enter organization name" ng-model="org.name"></input>
-      <input type="text" placeholder="Enter organization metric" ng-model="org.metric"></input>
-      <div ng-repeat="image in images">
-        <img ng-src = "{{ images[$index] }}" class="icon" ng-model="org.image" ng-click="selectImage($event, $index)">
+      <input type="number" placeholder="Enter data" ng-model="org.metric.data"></input>
+      <input type="text" placeholder="Enter result" ng-model="org.metric.result"></input>
+      <input type="number" placeholder="Enter time period in days" ng-model="org.metric.time"></input>
+      <div>
+        <span ng-repeat="image in images">
+          <img ng-src = "{{ images[$index] }}" class="icon" ng-model="org.image" ng-click="selectImage($event, $index)">
+        </span>
       </div>
       <!--<h1> {{ org.image }} </h1>-->
       <button>submit</button>
@@ -19,6 +23,9 @@
       <!--</div>-->
     </form>
           <h1> {{ org.name }} </h1>
-          <h2>{{ org.metric }} </h2>
+          <h2>{{ org.metric.data }} {{ org.metric.result }} over {{ org.metric.time }} days</h2>
+    <span ng-repeat="htmlEl in htmlEls">
+      <span ng-bind-html="htmlEl"> </span> 
+    </span>
   </body>
 </html>

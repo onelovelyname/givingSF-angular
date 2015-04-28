@@ -1,6 +1,6 @@
 var app = angular.module('givingSF', []);
 
-app.controller('OrgController', function ($scope) {
+app.controller('OrgController', function ($scope, $sce) {
   $scope.orgs = [];
   $scope.org = {};
   $scope.images = [ "assets/images/mortarBoard.png",
@@ -12,9 +12,14 @@ app.controller('OrgController', function ($scope) {
   $scope.saveOrg = function () {
     $scope.orgs.push({
       name: $scope.org.name,
-      metric: $scope.org.metric
+      image: $scope.org.image,
+      metric: { data:   $scope.org.metric.data,
+                result: $scope.org.metric.result,
+                time:   $scope.org.metric.time
+              }
     });
     console.log( $scope.orgs );
+    $scope.outputVisual($scope.org.image);
   };
 
   $scope.selectImage = function (event, index) {
@@ -23,9 +28,15 @@ app.controller('OrgController', function ($scope) {
     console.log($scope);
   };
 
-  // $scope.isActive = function (image){
-  //   return $scope.selected === image;
-  // };
+  $scope.outputVisual = function (image) {
+    $scope.htmlEls = [];
+    for (var i = 0; i < $scope.org.metric.data; i++) {
+      $scope.htmlEls.push($sce.trustAsHtml("<img src=\""+image+"\" class='icon'>"));
+      console.log(i);
+    }
+    console.log($scope.htmlEls);
+  };
+
 
 });
 
