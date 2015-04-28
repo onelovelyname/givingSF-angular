@@ -3,7 +3,7 @@
 	display: inline-block;
 }
 
-.selected {
-  border-style: solid;
-  border-color: red;
+.selectedIcon {
+  border-style: solid !important;
+  border-color: red !important;
 }

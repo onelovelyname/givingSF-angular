@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <!--<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="js/main.js"></script>
   </head>
   <body ng-controller="OrgController">
@@ -12,7 +12,7 @@
       <input type="text" placeholder="Enter organization name" ng-model="org.name"></input>
       <input type="number" placeholder="Enter data" ng-model="org.metric.data"></input>
       <input type="text" placeholder="Enter result" ng-model="org.metric.result"></input>
-      <input type="number" placeholder="Enter time period in days" ng-model="org.metric.time"></input>
+      <input type="number" placeholder="Enter time in days" ng-model="org.metric.time"></input>
       <div>
         <span ng-repeat="image in images">
           <img ng-src = "{{ images[$index] }}" class="icon" ng-model="org.image" ng-click="selectImage($event, $index)">
@@ -23,12 +23,14 @@
       <!--<div ng-repeat="org in orgs track by $index">-->
       <!--</div>-->
     </form>
+    <!--
           <h1> {{ org.name }} </h1>
           <h2>{{ org.metric.data }} {{ org.metric.result }} over {{ org.metric.time }} days</h2>
+        -->
+    <span ng-bind-html="orgsDisplay"> </span> 
     <span ng-repeat="htmlEl in htmlEls">
       <span ng-bind-html="htmlEl"> </span> 
     </span>
-    <div d3-graph bar-height="20" bar-padding="5"></div>
 
   </body>
 </html>
