@@ -18,11 +18,11 @@ app.controller('OrgController', function ($scope, $sce) {
                 time:   $scope.org.metric.time
               }
     });
-    console.log( $scope.orgs );
-    $scope.orgsDisplay = "";
-    $scope.orgsDisplay = $sce.trustAsHtml("<h1>" + $scope.org.name + "</h1>" + "<h2>" + $scope.org.metric.data + " " + $scope.org.metric.result + " over " + $scope.org.metric.time + " days</h2>");
+    $scope.orgDisplay = "";
+    $scope.orgDisplay = $sce.trustAsHtml("<h1>" + $scope.org.name + "</h1>" + "<h2>" + $scope.org.metric.data + " " + $scope.org.metric.result + " over " + $scope.org.metric.time + " days</h2>");
     $scope.outputVisual($scope.org.image);
     $scope.org = "";
+    console.log( $scope.orgs );
   };
 
   $scope.selectImage = function (event, index) {

@@ -4,6 +4,6 @@
 }
 
 .selectedIcon {
-  border-style: solid !important;
-  border-color: red !important;
+  border-style: solid;
+  border-color: red;
 }
