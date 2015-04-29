@@ -23,6 +23,15 @@ app.controller('OrgController', function ($scope, $sce) {
     $scope.outputVisual($scope.org.image);
     $scope.org = "";
     console.log( $scope.orgs );
+    $scope.postOrg($scope.org);
+  };
+
+  $scope.postOrg = function (org) {
+    return $http({
+      method: 'POST',
+      url: '/api/org',
+      data: org
+    });
   };
 
   $scope.selectImage = function (event, index) {

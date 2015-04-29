@@ -1,0 +1,30 @@
+{
+  "name": "givingSF",
+  "version": "1.0.0",
+  "description": "givingSF enables volunteers to find and contribute to the most effective non-profits in their communities.",
+  "main": "basic-server.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onelovelyname/givingSF.git"
+  },
+  "author": "Melanie Gin",
+  "license": "Proprietary",
+  "bugs": {
+    "url": "https://github.com/onelovelyname/givingSF/issues"
+  },
+  "homepage": "https://github.com/onelovelyname/givingSF",
+  "dependencies": {
+    "bluebird": "^2.9.24",
+    "body-parser": "^1.12.3",
+    "bookshelf": "^0.7.9",
+    "ejs": "^2.3.1",
+    "express": "^4.12.3",
+    "express-partials": "^0.3.0",
+    "knex": "^0.7.6",
+    "mysql": "^2.6.2",
+    "sqlite3": "^3.0.5"
+  }
+}
